@@ -137,7 +137,9 @@ void wait_for_frame(struct renderer_d3d12* renderer, struct resources_d3d12* res
 
 bool renderer_init(struct renderer_d3d12* renderer, struct resources_d3d12* resources, HWND window, struct windowsize ws) {
 	// debug reporting
-	#if BUILD_DEBUG
+	// in Rust we cando conditional compilation for unoptimized builds with #[cfg(debug_assertions)] (https://stackoverflow.com/questions/39204908/how-to-check-release-debug-builds-using-cfg-in-rust)
+
+#if BUILD_DEBUG
 	{
 		if (SUCCEEDED(D3D12GetDebugInterface(&IID_ID3D12Debug, &renderer->debug))) {
 			ID3D12Debug_EnableDebugLayer(renderer->debug);
